@@ -45,6 +45,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'Townk/vim-autoclose'
 " Indent text object
 " Bundle 'michaeljsmith/vim-indent-object'
+" LaTeX plugin
+Bundle 'vim-latex/vim-latex'
 
 " ============================================================================
 " Install plugins the first time vim runs
@@ -242,6 +244,13 @@ set backupdir=~/.vim/dirs/backups " where to put backup files
 set undofile                      " persistent undos - undo after you re-open the file
 set undodir=~/.vim/dirs/undos
 set viminfo+=n~/.vim/dirs/viminfo
+
+" Spell check!
+" Use ]s to go to the next misspelled word or [s to go back one
+" Use z= to get spelling suggestions
+set spelllang=en_us
+map <F2> :setlocal spell<CR>
+map <F3> :setlocal nospell<CR>
 
 " Function and mapping for tab complete
 function! Tab_Or_Complete()
