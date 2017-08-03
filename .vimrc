@@ -50,9 +50,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'Townk/vim-autoclose'
 " Indent text object
 " Bundle 'michaeljsmith/vim-indent-object'
-
-" vim latex
-Plugin 'vim-latex/vim-latex'
+" LaTeX plugin
+Bundle 'vim-latex/vim-latex'
 
 "Base16 colors
 Plugin 'chriskempson/base16-vim'
@@ -262,6 +261,12 @@ set viminfo+=n~/.vim/dirs/viminfo
 map <C-C> "+y 
 "Paste from the clipboard with ctrl-v
 map <C-X> "+p 
+" Spell check!
+" Use ]s to go to the next misspelled word or [s to go back one
+" Use z= to get spelling suggestions
+set spelllang=en_us
+map <F2> :setlocal spell<CR>
+map <F3> :setlocal nospell<CR>
 
 " Function and mapping for tab complete
 function! Tab_Or_Complete()
