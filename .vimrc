@@ -35,6 +35,11 @@ Bundle 'scrooloose/nerdtree'
 " Airline
 Bundle 'vim-airline/vim-airline'
 Bundle 'vim-airline/vim-airline-themes'
+" Type script
+Bundle 'leafgarland/typescript-vim'
+
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 " Terminal Vim with 256 colors colorscheme
 " Bundle 'fisadev/fisa-vim-colorscheme'
 " Consoles as buffers
@@ -46,6 +51,11 @@ Bundle 'Townk/vim-autoclose'
 " Indent text object
 " Bundle 'michaeljsmith/vim-indent-object'
 
+" vim latex
+Plugin 'vim-latex/vim-latex'
+
+"Base16 colors
+Plugin 'chriskempson/base16-vim'
 " ============================================================================
 " Install plugins the first time vim runs
 
@@ -214,17 +224,22 @@ map <F3> :NERDTreeToggle<CR>
 
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'distinguished'
-"let g:airline_theme = 'wombat'
+let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 
+" Markdown ------------------------------
+let g:vim_markdown_folding_disabled = 1
 
+"Base16 colors 
+let base16colorspace=256  " Access colors present in 256 colorspace
 "------------------------------------------------------------
 "
 "Custom settings
 set t_Co=256
 highlight Normal ctermfg=grey ctermbg=black
-colorscheme desert
+colorscheme base16-ocean
+highlight Search ctermbg=5 ctermfg=255
 "highlight Normal ctermbg=NONE
 "highlight nonText ctermbg=NONE
 
@@ -243,6 +258,11 @@ set undofile                      " persistent undos - undo after you re-open th
 set undodir=~/.vim/dirs/undos
 set viminfo+=n~/.vim/dirs/viminfo
 
+"Copy to the clipboard with ctrl-c
+map <C-C> "+y 
+"Paste from the clipboard with ctrl-v
+map <C-X> "+p 
+
 " Function and mapping for tab complete
 function! Tab_Or_Complete()
     if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
@@ -253,3 +273,4 @@ function! Tab_Or_Complete()
 endfunction
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 set dictionary="/usr/dict/words" 
+
