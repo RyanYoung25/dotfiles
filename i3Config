@@ -145,9 +145,9 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3status
-}
+#bar {
+#        status_command i3status
+#}
 
 #Try to get wifi working 
 exec --no-startup-id nm-applet
@@ -159,3 +159,67 @@ bindsym $mod+shift+s move workspace to output right
 #Move workspaces with ctrl and arrow keys
 bindsym $mod+Control+Left workspace prev  
 bindsym $mod+Control+Right workspace next 
+
+# VOLUME ADJUSTMENT
+bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
+bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
+bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
+#bindsym $MOD+SHIFT+Up exec amixer set Master 5.0%+
+#bindsym $MOD+SHIFT+Down exec amixer set Master 5.0%-
+
+#Disable my thinkpad touchpad (xinput no. 11)
+exec --no-startup-id xinput --disable 11
+
+
+#####################
+#Eye Candy Below ####
+##################### 
+#Base16 Default 3024
+
+set $base00 #090300
+set $base01 #3a3432
+set $base02 #4a4543
+set $base03 #5c5855
+set $base04 #807d7c
+set $base05 #a5a2a2
+set $base06 #d6d5d4
+set $base07 #f7f7f7
+set $base08 #db2d20
+set $base09 #e8bbd0
+set $base0A #fded02
+set $base0B #01a252
+set $base0C #b5e4f4
+set $base0D #01a0e4
+set $base0E #a16a94
+set $base0F #cdab53
+
+# Basic bar configuration using the Base16 variables.
+bar {
+    status_command i3status
+
+    colors {
+        background $base01
+        separator  $base00
+        statusline $base0C
+
+        # State             Border  BG      Text
+        focused_workspace   $base05 $base0D $base00
+        active_workspace    $base05 $base03 $base00
+        inactive_workspace  $base03 $base01 $base05
+        urgent_workspace    $base08 $base08 $base00
+#        binding_mode        $base00 $base0A $base00
+    }
+}
+
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          $base05 $base0D $base00 $base0D $base0D
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+client.background       $base07
+
+#################################
+#Set a background image with feh#
+#################################
+exec --no-startup-id feh --bg-scale /home/ryan/Pictures/Background.jpg

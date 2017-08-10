@@ -1,7 +1,7 @@
 #!/bin/bash
 #Make symlinks in the appropriate parts of the home directory
 
-CUR_DIR=pwd
+CUR_DIR=`pwd`
 vim_link () {
     #Setup vim
 
@@ -16,7 +16,6 @@ vim_link () {
 
 tmux_link () {
     #Setup tmux 
-
     #Link the tmux.conf to ~/.tmux.conf
     ln -s $CUR_DIR/tmux.conf ~/.tmux.conf
 }
@@ -50,14 +49,13 @@ fi
 # A POSIX variable
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
-echo "Trying to read ops"
 while getopts hvti opt; do
     case "$opt" in
     h)
         show_help
         exit 0
         ;;
-    v)  vim
+    v)  vim_link
         ;;
     t)  tmux_link 
         ;;
