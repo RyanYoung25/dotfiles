@@ -149,8 +149,6 @@ bindsym $mod+r mode "resize"
 #        status_command i3status
 #}
 
-#Try to get wifi working 
-exec --no-startup-id nm-applet
 
 #Move workspaces to different monitors 
 bindsym $mod+shift+a move workspace to output left
@@ -170,6 +168,23 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 #Disable my thinkpad touchpad (xinput no. 11)
 exec --no-startup-id xinput --disable 11
 
+#Lock screen 
+bindsym $mod+Control+Shift+l exec --no-startup-id i3lock -ti ~/.i3/background.png
+
+#Show Calendar
+bindsym $mod+Control+Shift+c exec gsimplecal
+
+#Start some windows in floating mode. 
+for_window [class="google-chrome"] enable floating
+for_window [class="slack"] enable floating
+for_window [class="thunderbird"] enable floating
+
+####################
+#Applets ###########
+####################
+
+#Try to get wifi working 
+exec --no-startup-id nm-applet
 
 #####################
 #Eye Candy Below ####
@@ -195,6 +210,8 @@ set $base0F #cdab53
 
 # Basic bar configuration using the Base16 variables.
 bar {
+
+    position top
     status_command i3status
 
     colors {
@@ -222,4 +239,4 @@ client.background       $base07
 #################################
 #Set a background image with feh#
 #################################
-exec --no-startup-id feh --bg-scale /home/ryan/Pictures/Background.jpg
+exec --no-startup-id feh --bg-scale ~/.i3/background.png
