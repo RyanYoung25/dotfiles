@@ -35,11 +35,6 @@ Bundle 'scrooloose/nerdtree'
 " Airline
 Bundle 'vim-airline/vim-airline'
 Bundle 'vim-airline/vim-airline-themes'
-" Type script
-Bundle 'leafgarland/typescript-vim'
-
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
 " Terminal Vim with 256 colors colorscheme
 " Bundle 'fisadev/fisa-vim-colorscheme'
 " Consoles as buffers
@@ -53,8 +48,22 @@ Bundle 'Townk/vim-autoclose'
 " LaTeX plugin
 Bundle 'vim-latex/vim-latex'
 
-"Base16 colors
+"Base 16 colorscheme
 Plugin 'chriskempson/base16-vim'
+"Vim Minimap
+Plugin 'severin-lemaignan/vim-minimap'
+"Vim Svn Gutter
+Bundle 'vim-scripts/vim-svngutter'
+"YouCompleteMe plugin
+"Bundle 'Valloric/YouCompleteMe'
+" Better syntax highlighting
+"Bundle 'scrooloose/syntastic'
+"Taglist.vim A better source code browser
+Bundle 'vim-scripts/taglist.vim'
+"lustyJuggler a buffer explorer that I should use instead of tabs
+Bundle 'sjbach/lusty'
+
+"
 " ============================================================================
 " Install plugins the first time vim runs
 
@@ -189,9 +198,37 @@ set notimeout ttimeout ttimeoutlen=50
  
 " Indentation settings for using 4 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
+"set shiftwidth=4
+"set softtabstop=4
+"set expandtab
+
+
+" Tabbing setup 
+set sw=4
+set sts=4
+set ts=4
 set expandtab
+set smarttab
+set nolisp
+set autoindent
+set smartindent
+set cindent
+set modeline
+
+" set indentkeys=!!^F,o,O,<:>,0),0],0},=elif,=except
+
+" g0: Left-align scope labels (public, etc) in C++
+" (0: Line up first non-whitespace char after the unclosed ( on prev. line
+" u0: Same, for one level deeper
+" U1: Don't ignore the two options above
+" w0: Really don't ignore (0 and u0 (line up w/ first
+"     non-whitespace char after '(')
+" Ws: OK to ignore on really long lines
+" t0: Don't indent function return types
+" +0: Don't add indent to a continuation line (this is the only way I've found
+"     to prevent an extra indent between a function return type and the
+"     function name(and parameters)
+set cino=g0,(0,u0,U1,w0,Ws,t0,+0
  
  
 "------------------------------------------------------------
@@ -218,7 +255,7 @@ map <C-L> <C-W>l
 "Plugin settings
 
 " toggle nerdtree display
-map <F3> :NERDTreeToggle<CR>
+map <F4> :NERDTreeToggle<CR>
 " Airline ------------------------------
 
 let g:airline_powerline_fonts = 0
@@ -227,27 +264,31 @@ let g:airline_theme = 'base16'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 
-" Markdown ------------------------------
-let g:vim_markdown_folding_disabled = 1
-
-"Base16 colors 
-let base16colorspace=256  " Access colors present in 256 colorspace
+" Taglist
+map tl :TlistToggle<CR>
+let Tlist_GainFocus_On_ToggleOpen = 1
+"base16 color settings
+let base16colorspace=256
 "------------------------------------------------------------
 "
 "Custom settings
 set t_Co=256
 highlight Normal ctermfg=grey ctermbg=black
-colorscheme base16-ocean
-highlight Search ctermbg=5 ctermfg=255
+colorscheme base16-3024
 "highlight Normal ctermbg=NONE
 "highlight nonText ctermbg=NONE
 
 " tab navigation mappings
-map tn :tabn<CR>
-map tp :tabp<CR>
+" USE BUFFERS, they're more correct
+map tn :bnext<CR>
+map tp :bprevious<CR>
 map tm :tabm 
-map tt :tabnew 
+map tt :edit 
 map ts :tab split<CR>
+map td :bdelete<CR>
+
+" Visual mode searching 
+vnoremap // y/<C-R>"<CR>
 
 " better backup, swap and undos storage
 set directory=~/.vim/dirs/tmp     " directory to place swap files in
@@ -257,10 +298,14 @@ set undofile                      " persistent undos - undo after you re-open th
 set undodir=~/.vim/dirs/undos
 set viminfo+=n~/.vim/dirs/viminfo
 
-"Copy to the clipboard with ctrl-c
-map <C-C> "+y 
-"Paste from the clipboard with ctrl-v
-map <C-X> "+p 
+"
+"
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
+
 " Spell check!
 " Use ]s to go to the next misspelled word or [s to go back one
 " Use z= to get spelling suggestions
@@ -269,13 +314,12 @@ map <F2> :setlocal spell<CR>
 map <F3> :setlocal nospell<CR>
 
 " Function and mapping for tab complete
-function! Tab_Or_Complete()
-    if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-        return "\<C-N>"
-    else
-        return "\<Tab>"
-    endif
-endfunction
-inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+"function! Tab_Or_Complete()
+"    if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+"        return "\<C-N>"
+"    else
+"        return "\<Tab>"
+"    endif 
+"endfunction
+"inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 set dictionary="/usr/dict/words" 
-
