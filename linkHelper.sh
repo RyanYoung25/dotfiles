@@ -24,7 +24,7 @@ i3_link () {
     #Setup i3 
 
     #Link i3Config to ~/.i3/config
-    ln -s $CUR_DIR/i3Config ~/.i3/config
+    ln -s $CUR_DIR/i3Config ~/.config/i3/config
     #Link i3status.conf to ~/.i3status.conf
     ln -s $CUR_DIR/i3status.conf ~/.i3status.conf 
 }

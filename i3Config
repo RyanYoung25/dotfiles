@@ -169,19 +169,11 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 #bindsym $MOD+SHIFT+Up exec amixer set Master 5.0%+
 #bindsym $MOD+SHIFT+Down exec amixer set Master 5.0%-
 
-#Disable my thinkpad touchpad (xinput no. 11)
-exec --no-startup-id xinput --disable 11
-
 #Lock screen 
 bindsym $mod+Control+Shift+l exec --no-startup-id i3lock -ti ~/.i3/background.png -d
 
 #Show Calendar
 bindsym $mod+Control+Shift+c exec gsimplecal
-
-#Start some windows in floating mode. 
-for_window [class="firefox"] enable floating
-for_window [class="slack"] enable floating
-for_window [class="thunderbird"] enable floating
 
 ####################
 #Applets ###########
@@ -243,7 +235,73 @@ client.unfocused        $base01 $base00 $base05 $base01 $base01
 client.urgent           $base08 $base08 $base00 $base08 $base08
 client.background       $base07
 
+################################
+#Gaps                          #
+################################
+
+# Disable window titlebars entirely
+for_window [class="^.*"] border pixel 2
+
+gaps inner 10
+gaps outer 15
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+# smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
 #################################
 #Set a background image with feh#
 #################################
-exec --no-startup-id feh --bg-scale ~/.i3/background.png
+#exec --no-startup-id feh --bg-scale ~/.i3/background.png
+
+#######################################################
+#Startup a pulseaudio control widgit in the sytem tray#
+#######################################################
+exec pasystray 

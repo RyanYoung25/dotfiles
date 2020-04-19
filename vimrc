@@ -59,9 +59,7 @@ Bundle 'vim-scripts/vim-svngutter'
 " Better syntax highlighting
 "Bundle 'scrooloose/syntastic'
 "Taglist.vim A better source code browser
-Bundle 'vim-scripts/taglist.vim'
-"lustyJuggler a buffer explorer that I should use instead of tabs
-Bundle 'sjbach/lusty'
+"Bundle 'vim-scripts/taglist.vim'
 
 "
 " ============================================================================
