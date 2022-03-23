@@ -53,16 +53,19 @@ Plugin 'chriskempson/base16-vim'
 "Vim Minimap
 Plugin 'severin-lemaignan/vim-minimap'
 "Vim Svn Gutter
-Bundle 'vim-scripts/vim-svngutter'
+"#Bundle 'vim-scripts/vim-svngutter'
 "YouCompleteMe plugin
 "Bundle 'Valloric/YouCompleteMe'
 " Better syntax highlighting
 "Bundle 'scrooloose/syntastic'
 "Taglist.vim A better source code browser
 Bundle 'vim-scripts/taglist.vim'
-"lustyJuggler a buffer explorer that I should use instead of tabs
-Bundle 'sjbach/lusty'
-
+" ML based auto complete
+Plugin 'zxqfl/tabnine-vim'
+" Minibuf explorer
+Plugin 'fholgado/minibufexpl.vim'
+" ALE real time linting - Need vim 8 :( 
+Plugin 'dense-analysis/ale'
 "
 " ============================================================================
 " Install plugins the first time vim runs
@@ -250,6 +253,10 @@ map <C-K> <C-W>k
 map <C-H> <C-W>h 
 map <C-L> <C-W>l 
 
+"Make it so \vs will vertically split the buffer you're on such that 
+" the other buffer will be a continuation and follow scrolling
+noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
+
 "------------------------------------------------------------
 "
 "Plugin settings
@@ -305,7 +312,23 @@ if has("autocmd")
     \| exe "normal! g'\"" | endif
 endif
 
+" minibufexplorer settings
+let g:miniBufExplMapWindowNavArrows = 1 " Ctrl+arrow changes window
+let g:miniBufExplMapCTabSwitchBufs = 1  " Ctrl-[S-]Tab changes buffer
+let g:miniBufExplSplitBelow = 1      " at the bottom / right
+let g:miniBufExplSplitToEdge = 0     " but not above taglist
+let g:miniBufExplModSelTarget = 1    " do not open files in taglist window
+let g:miniBufExplVSplit = 20         " make it vertical
+let g:miniBufExplorerMoreThanOne =99 " do not open automatically
+let g:miniBufExplUseSingleClick = 1  " no need to double-click
+let g:miniBufExplorerAutoUpdate=0    " don't confuse FUF's idea of prev buffer
+set hid              "Hide abandoned buffers in order not to loose undo history
 
+map bl :MBEToggleAll<CR>
+
+
+" Create a line at 80 chars so I don't write really long lines
+set colorcolumn=80 
 " Spell check!
 " Use ]s to go to the next misspelled word or [s to go back one
 " Use z= to get spelling suggestions

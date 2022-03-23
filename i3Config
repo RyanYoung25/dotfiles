@@ -168,20 +168,27 @@ bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 #bindsym $MOD+SHIFT+Up exec amixer set Master 5.0%+
 #bindsym $MOD+SHIFT+Down exec amixer set Master 5.0%-
-
+# Brightness Adjustment
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 #Disable my thinkpad touchpad (xinput no. 11)
 exec --no-startup-id xinput --disable 11
 
 #Lock screen 
-bindsym $mod+Control+Shift+l exec --no-startup-id i3lock -ti ~/.i3/background.png -d
+bindsym $mod+Control+Shift+l exec --no-startup-id i3lock -c 000000 
 
 #Show Calendar
 bindsym $mod+Control+Shift+c exec gsimplecal
+
+#Open the screenshot tool
+bindsym $mod+Control+Shift+p exec gnome-screenshot -i
 
 #Start some windows in floating mode. 
 for_window [class="firefox"] enable floating
 for_window [class="slack"] enable floating
 for_window [class="thunderbird"] enable floating
+
+
 
 ####################
 #Applets ###########
